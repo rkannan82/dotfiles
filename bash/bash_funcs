@@ -1,0 +1,27 @@
+function ff() {
+  if [ $# = 1 ]; then
+    find . -iname $1 -print
+  else
+    find $1 -iname $2 -print
+  fi
+}
+
+function mm() {
+  base_cmd="mvn clean install $MVN_ARGS -fn"
+
+  if [ $# = 0 ]; then
+    cmd=$base_cmd
+  elif [ $1 == "stc" ]; then
+    cmd="$base_cmd -Dmaven.test.skip=true"
+  elif [ $1 == "s" ]; then
+    cmd="$base_cmd -DskipTests=true"
+  elif [ $1 == "d" ]; then
+    cmd="$base_cmd -Dmaven.surefire.debug -Dtest=$2"
+  elif [ $1 == "t" ]; then
+    cmd="$base_cmd -Dtest=$2"
+  fi
+  
+  echo $MVN_ARGS
+  echo "Running: $cmd"
+  $cmd
+}

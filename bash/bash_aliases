@@ -1,0 +1,4 @@
+alias cls="clear"
+alias vi="vim"
+alias pud="pushd"
+alias pod="popd"

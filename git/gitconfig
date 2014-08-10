@@ -1,0 +1,35 @@
+[user]
+	name = Kannan Rajah
+	email = krajah@maprtech.com
+[core]
+	editor = vim
+[alias]
+	br = branch
+	ci = commit
+	cia = commit --amend
+	co = checkout
+	st = status -s
+	revert = reset HEAD --
+
+	#log
+	ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+	lsd = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+	lsdr = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
+
+	myls = !git ls --author krajah
+	myll = !git ls --author krajah
+	mylsd = !git ls --author krajah
+	mylsdr = !git ls --author krajah
+
+	
+[color]
+	ui = true
+[web]
+	browser = google-chrome
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[push]
+	default = current
