@@ -1,9 +1,11 @@
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+basedir=${HOME}/dotfiles
+
+if [ -f $basedir/bash/bash_aliases ]; then
+    . $basedir/bash/bash_aliases
 fi
 
-if [ -f ~/.bash_funcs ]; then
-    . ~/.bash_funcs
+if [ -f $basedir/bash/bash_funcs ]; then
+    . $basedir/bash/bash_funcs
 fi
 
 export TERM="xterm-256color"

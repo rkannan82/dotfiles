@@ -1,7 +1,8 @@
 let mapleader=","
 let maplocalleader="\\"
 
-so $HOME/.vim/settings.vim
+so $HOME/dotfiles/vim/vundles.vim
+so $HOME/dotfiles/vim/settings.vim
 
 " auto commands {{{
 augroup filetype_vim
