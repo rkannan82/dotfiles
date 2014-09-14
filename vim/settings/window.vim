@@ -1,4 +1,9 @@
 " Mappings {{{
+" navigating splits
+noremap <C-J> <C-W>j
+noremap <C-K> <C-W>k
+noremap <C-H> <C-W>h
+noremap <C-L> <C-W>l
 
 " Resize current window
 noremap > <C-W>+4
@@ -13,9 +18,9 @@ noremap <C-Z> <C-W>z
 
 " close split
 noremap <C-Q> <C-W>q
+" }}}
 
 " Tab formating {{{
-
 function! MyTabLabel(n)
   let buflist = tabpagebuflist(a:n)
   let winnr = tabpagewinnr(a:n)
@@ -52,3 +57,4 @@ function! MyTabLine()
 endfunction
 
 set tabline=%!MyTabLine()
+" }}}

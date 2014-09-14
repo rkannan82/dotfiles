@@ -8,6 +8,8 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
+Plugin 'bling/vim-airline'
+Plugin 'edkolev/tmuxline.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'ludovicchabant/vim-lawrencium'
 Plugin 'rkannan82/eclim'
@@ -19,6 +21,14 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'xolox/vim-session'
 Plugin 'xolox/vim-misc'
 Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-surround'
+Plugin 'jlanzarotta/bufexplorer'
+Plugin 'duff/vim-bufonly'
+Plugin 'scrooloose/nerdtree'
+Plugin 'Lokaltog/powerline-fonts'
+Plugin 'godlygeek/tabular'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'honza/vim-snippets'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required

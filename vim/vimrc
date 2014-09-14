@@ -1,33 +1,22 @@
 let mapleader=","
 let maplocalleader="\\"
 
-so $HOME/dotfiles/vim/vundles.vim
-so $HOME/dotfiles/vim/settings.vim
+so $HOME/.vim/settings.vim
 
-" auto commands {{{
+" Auto commands {{{
 augroup filetype_vim
   autocmd!
   autocmd FileType vim setlocal foldmethod=marker
 augroup END
-" }}}
-
-function! TrimWhiteSpace()
-  let cursor_pos = getpos(".")
-  silent! %s/\s\+$//
-  call setpos('.', cursor_pos)
-:endfunction
 
 "autocmd FileWritePre *.java,*.xml :call TrimWhiteSpace()
 "autocmd FileAppendPre *.java,*.xml :call TrimWhiteSpace()
 "autocmd BufWritePre *.java,*.xml :call TrimWhiteSpace()
+" }}}
 
+" Options {{{
 filetype plugin on
 filetype indent on
-
-set term=xterm-256color
-set t_Co=256
-set background=dark
-colorscheme solarized
 
 set hls
 set nu
@@ -36,33 +25,29 @@ set vb t_vb=
 set autoindent
 set incsearch
 set noic
-syntax enable
 set showmode
 let loaded_matchparen=1
 set updatetime=1000
 set showtabline=2
 set modifiable
-set hidden
 set nobackup
 set nowb
 set noswapfile
 set expandtab
 set cursorline
-
 set smarttab
 " 1 tab == 2 spaces
 set shiftwidth=2
 set tabstop=2
+" auto format lines using textwidth 
+set formatoptions+=t
+set completeopt+=longest
 
 " don't display welcome
 set shortmess+=I
+" }}}
 
-"set tabline=\[%N\]\ %t
-"set laststatus=2
-"set statusline=%<\ %n:%f\ %m%r%y%=%-35.(line:\ %l\ of\ %L,\ col:\ %c%V\ (%P)%)
-
-" keyboard noremappings
-noremap - dd
+" Mappings {{{
 nnoremap <leader>, :noh<CR>
 cnoremap jsh cd %:p:h<CR>:sh<CR>
 
@@ -72,98 +57,25 @@ cnoremap colgrp echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> 
 nnoremap `` :call TrimWhiteSpace()<CR>
 nnoremap <leader>f :LocateFile<CR>
 nnoremap gf <C-W>f
-
-" navigating tabs
-noremap <C-p> :tabp<CR>
-noremap <C-n> :tabn<CR>
-
-" navigating splits
-noremap <C-J> <C-W>j
-noremap <C-K> <C-W>k
-noremap <C-H> <C-W>h
-noremap <C-L> <C-W>l
-
-" normal mode mappings
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
-
 nnoremap <leader>g :execute "grep! -R " . shellescape(expand("<cWORD>")) . " " . expand('%:p')<cr>:copen<cr>
 nnoremap <leader>n :setlocal number!<cr>
+" }}}
 
-" insert mode mappings
-inoremap <c-u> <esc>bveUwi
-inoremap jk <esc>
-
-" noop mappings
-"inoremap <esc> <nop>
-"noremap <left> <nop>
-"noremap <right> <nop>
-"noremap <up> <nop>
-"noremap <down> <nop>
-
-set completeopt+=longest
-
-setlocal shiftwidth=2
-setlocal tabstop=2
-
-" auto format lines using textwidth 
-set formatoptions+=t
-
-" eclim settings
-let g:EclimLogLevel = 2
-let g:EclimLocateFileDefaultAction = 'tabnew'
-let g:EclimJavaSearchSingleResult = 'vsplit'
-let g:EclimJavaSearchMapping = 1
-let g:EclimBrowser = 'chrome'
-let g:JavaImportExclude = [ "^com\.sun\..*", "^sun\..*", "^sunw\..*" ]
-let g:EclimLocateFileFuzzy = 0
-let g:EclimLocateFileScope = 'workspace'
-let g:EclimJavaImportPackageSeparationLevel = 1
-let g:EclimProjectTreeExpandPathOnOpen = 1
-let g:EclimMavenPomClasspathUpdate = 0
-"let g:EclimVimFindSingleResult = 'edit'
-"let g:EclimXmlValidate = 0
-
-" supertab
-let g:SuperTabDefaultCompletionType = "context"
-
-" ctrlp
-"let g:ctrlp_noremap = '<c-g>'
-"let g:ctrlp_cmd = ''
-"let g:ctrlp_max_files = 0
-"let g:ctrlp_max_height = 10
-"let g:ctrlp_max_depth = 40
-
+" Functions {{{
 " toggle highlighting long lines
-nnoremap <silent> <Leader>ll
-      \ :if exists('w:long_line_match') <Bar>
-      \   silent! call matchdelete(w:long_line_match) <Bar>
-      \   unlet w:long_line_match <Bar>
-      \ elseif &textwidth > 0 <Bar>
-      \   let w:long_line_match = matchadd('ErrorMsg', '\%>'.&tw.'v.\+', -1) <Bar>
-      \ else <Bar>
-      \   let w:long_line_match = matchadd('ErrorMsg', '\%>80v.\+', -1) <Bar>
-      \ endif<CR>
-
-" toggle highlighting current line
-nnoremap <silent> <Leader>cl :set cursorline!<CR>
-
-" git
-noremap <Leader>gd :Gdiff HEAD<CR><C-L>
-noremap <Leader>gq <C-H>:q<CR>
-noremap <Leader>gs :Gstatus<CR>
-noremap <Leader>gc :Gcommit<CR>
-
-" hg
-noremap <Leader>hd :Hgvdiff<CR>
-noremap <Leader>hq <C-H>:q<CR>
-noremap <Leader>hs :Hgstatus<CR>
-noremap <Leader>hc :Hgcommit<CR>
-
-" tagbar
-noremap <Leader>t :Tagbar<CR><C-L>
-
-noremap <Leader>l :set nolist<CR>
+function! s:ShowLongLines()
+  if exists('w:long_line_match') <Bar>
+    silent! call matchdelete(w:long_line_match) <Bar>
+    unlet w:long_line_match <Bar>
+  elseif &textwidth > 0 <Bar>
+    let w:long_line_match = matchadd('ErrorMsg', '\%>'.&tw.'v.\+', -1) <Bar>
+  else <Bar>
+    let w:long_line_match = matchadd('ErrorMsg', '\%>80v.\+', -1) <Bar>
+  endif<CR>
+endfunction
+command! -complete=shellcmd -nargs=+ LongLines call s:ShowLongLines()
 
 function! s:ExecuteInShell(command)
   let command = join(map(split(a:command), 'expand(v:val)'))
@@ -203,5 +115,12 @@ function! ProjectImportDiscover(dir)
   for project in projects
     execute "!" . "eclim -command project_import -f" . fnamemodify(project, ':h')
   endfor
-
 endfunction
+
+function! TrimWhiteSpace()
+  let cursor_pos = getpos(".")
+  silent! %s/\s\+$//
+  call setpos('.', cursor_pos)
+:endfunction
+
+" }}}

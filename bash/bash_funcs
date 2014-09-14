@@ -1,9 +1,9 @@
 # Find file
 function ff() {
   if [ $# = 1 ]; then
-    find . -iname $1 -print
+    find . -name $1 -print
   else
-    find $1 -iname $2 -print
+    find $1 -name $2 -print
   fi
 }
 
