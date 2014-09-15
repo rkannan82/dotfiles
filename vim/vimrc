@@ -50,18 +50,18 @@ set shortmess+=I
 
 " Mappings {{{
 nnoremap <leader>, :noh<CR>
-cnoremap jsh cd %:p:h<CR>:sh<CR>
+cnoremap jsh<CR> cd %:p:h<CR>:sh<CR>
 
-cnoremap colgrp echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
+"cnoremap colgrp echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
 
 " remove trailing spaces
 nnoremap `` :call TrimWhiteSpace()<CR>
 nnoremap <leader>f :LocateFile<CR>
-nnoremap gf <C-W>f
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr>
+"nnoremap gf <C-W>f
+"nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+"nnoremap <leader>sv :source $MYVIMRC<cr>
 nnoremap <leader>g :execute "grep! -R " . shellescape(expand("<cWORD>")) . " " . expand('%:p')<cr>:copen<cr>
-nnoremap <leader>n :setlocal number!<cr>
+nnoremap <leader>1 :setlocal number!<cr>
 " }}}
 
 " Functions {{{
@@ -93,7 +93,7 @@ function! s:ExecuteInShell(command)
 endfunction
 command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
 
-nnoremap <leader>q :call QuickfixToggle()<cr>
+"nnoremap <leader>q :call QuickfixToggle()<cr>
 
 let g:quickfix_is_open = 0
 

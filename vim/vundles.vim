@@ -29,6 +29,9 @@ Plugin 'Lokaltog/powerline-fonts'
 Plugin 'godlygeek/tabular'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'honza/vim-snippets'
+Plugin 'Shougo/unite.vim'
+Plugin 'kien/ctrlp.vim'
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
