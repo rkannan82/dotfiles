@@ -1,4 +1,6 @@
-let g:airline_theme='tomorrow'
+"let g:airline_theme='tomorrow'
+"let g:airline_theme='murmur'
+let g:airline_theme='luna'
 
 " Enable the list of buffers
 let g:airline#extensions#tabline#enabled = 1
