@@ -30,6 +30,7 @@ Plugin 'godlygeek/tabular'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'honza/vim-snippets'
 Plugin 'Shougo/unite.vim'
+Plugin 'airblade/vim-gitgutter'
 
 
 " All of your Plugins must be added before the following line

@@ -12,6 +12,7 @@ let g:EclimProjectTreeExpandPathOnOpen = 1
 let g:EclimMavenPomClasspathUpdate = 0
 let g:EclimVimFindSingleResult = 'vsplit'
 "let g:EclimXmlValidate = 0
+let g:EclimLoclistSignText = '!'
 " }}}
 
 " debugger mappings {{{
