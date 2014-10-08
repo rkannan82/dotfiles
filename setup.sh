@@ -14,7 +14,6 @@ function setupBash() {
   echo "######### Importing settings ##########" >> ${HOME}/.bashrc
   echo ". $base_dir/bash/bash_settings" >> ${HOME}/.bashrc
   echo "#######################################" >> ${HOME}/.bashrc
-  bash
 
   echo "Bash setup complete"
 }
@@ -70,3 +69,5 @@ setupTmux
 setupGit
 
 echo "Done!"
+
+bash
