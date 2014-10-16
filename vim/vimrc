@@ -54,7 +54,7 @@ set shortmess+=I
 " }}}
 
 " Mappings {{{
-nnoremap <leader>h :noh<CR>
+nnoremap <leader>/ :noh<CR>
 nnoremap <leader>1 :setlocal number!<cr>
 "cnoremap jsh<CR> cd %:p:h<CR>:sh<CR>
 
