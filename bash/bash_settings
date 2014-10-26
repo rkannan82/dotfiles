@@ -1,6 +1,7 @@
 export TERM="xterm-256color"
 
 basedir=${HOME}/dotfiles
+PS1="\u@\h:\w$ "
 
 if [ -f $basedir/bash/bash_aliases ]; then
     . $basedir/bash/bash_aliases

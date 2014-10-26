@@ -23,7 +23,6 @@ function mm() {
     cmd="$base_cmd -Dtest=$2"
   fi
   
-  echo $MVN_ARGS
   echo "Running: $cmd"
   $cmd
 }

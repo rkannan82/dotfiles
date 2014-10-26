@@ -42,6 +42,10 @@ function setupVim() {
   echo "Installing VIM plugins ..."
   vim +PluginInstall +qall
 
+  colors_dir=${HOME}/.vim/colors
+  mkdir -p $colors_dir
+  ln -sf ${HOME}/.vim/bundle/vim-colors-solarized/colors/solarized.vim $colors_dir/solarized.vim
+
   echo "VIM setup complete"
 }
 
