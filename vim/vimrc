@@ -44,6 +44,7 @@ set smarttab
 set shiftwidth=2
 set tabstop=2
 " auto format lines using textwidth 
+set textwidth=80
 set formatoptions+=t
 set completeopt+=longest
 
@@ -51,6 +52,8 @@ set laststatus=2
 
 " don't display welcome
 set shortmess+=I
+
+set colorcolumn=80
 " }}}
 
 " Mappings {{{
@@ -72,16 +75,16 @@ nnoremap <leader>g :execute "grep! -R " . shellescape(expand("<cWORD>")) . " " .
 " Functions {{{
 " Toggle highlighting long lines.
 function! s:ShowLongLines() " {{{
-  if exists('w:long_line_match') <Bar>
-    silent! call matchdelete(w:long_line_match) <Bar>
-    unlet w:long_line_match <Bar>
-  elseif &textwidth > 0 <Bar>
-    let w:long_line_match = matchadd('ErrorMsg', '\%>'.&tw.'v.\+', -1) <Bar>
-  else <Bar>
-    let w:long_line_match = matchadd('ErrorMsg', '\%>80v.\+', -1) <Bar>
-  endif<CR>
+  if exists('w:long_line_match')
+    silent! call matchdelete(w:long_line_match)
+    unlet w:long_line_match
+  elseif &textwidth > 0
+    let w:long_line_match = matchadd('ErrorMsg', '\%>'.&tw.'v.\+', -1)
+  else
+    let w:long_line_match = matchadd('ErrorMsg', '\%>80v.\+', -1)
+  endif
 endfunction
-command! -complete=shellcmd -nargs=+ LongLines call s:ShowLongLines()
+command! -complete=shellcmd -nargs=0 LongLines call s:ShowLongLines()
 " }}}
 
 " Executes a command in shell.
@@ -101,17 +104,6 @@ endfunction
 command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
 " }}}
 
-" Imports all Eclipse projects under given dir.
-function! ProjectImportDiscover(dir) " {{{
-  let projects = split(globpath(a:dir, '**/.project'), '\n')
-  echo projects
-
-  for project in projects
-    execute "!" . "eclim -command project_import -f" . fnamemodify(project, ':h')
-  endfor
-endfunction
-" }}}
-
 " Trims trailing white spaces.
 function! TrimWhiteSpace() " {{{
   let cursor_pos = getpos(".")
@@ -120,4 +112,15 @@ function! TrimWhiteSpace() " {{{
 :endfunction
 " }}}
 
+" Inserts copyright.
+function! InsertCopyright(file) " {{{
+  normal ma
+  exec "0r" . a:file
+  normal 'a
+:endfunction
+" }}}
+
+"Commands
+command CopyrightHadoop :call InsertCopyright("$HOME/Code/utils/hadoop_copyright.txt")
+command CopyrightMapR :call InsertCopyright("$HOME/Code/utils/mapr_copyright.txt")
 " }}}
