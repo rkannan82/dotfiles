@@ -28,6 +28,7 @@ set ruler
 set vb t_vb=
 set autoindent
 set incsearch
+set smartcase
 set noic
 set showmode
 let loaded_matchparen=1
@@ -53,10 +54,18 @@ set laststatus=2
 " don't display welcome
 set shortmess+=I
 
-set colorcolumn=80
+"set colorcolumn=80
 " }}}
 
 " Mappings {{{
+" Arrow keys are bad!
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+
+nmap <leader>s :update<cr>
+
 nnoremap <leader>/ :noh<CR>
 nnoremap <leader>1 :setlocal number!<cr>
 "cnoremap jsh<CR> cd %:p:h<CR>:sh<CR>
@@ -118,9 +127,24 @@ function! InsertCopyright(file) " {{{
   exec "0r" . a:file
   normal 'a
 :endfunction
-" }}}
 
-"Commands
 command CopyrightHadoop :call InsertCopyright("$HOME/Code/utils/hadoop_copyright.txt")
 command CopyrightMapR :call InsertCopyright("$HOME/Code/utils/mapr_copyright.txt")
+" }}}
+
+" Highlights word under cursor without moving cursor.
+function! Highlight() " {{{
+  let @/ = '\<'.expand('<cword>').'\>'
+  return ":silent set hlsearch\<CR>"
+endfunction
+nnoremap <silent> <expr> <leader>* Highlight()
+" }}}
+
+" Show highlighting group used at the cursor
+function! HighlightGroup() " {{{
+echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+  \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+  \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
+endfunction
+" }}}
 " }}}

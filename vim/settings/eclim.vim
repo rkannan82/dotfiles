@@ -21,8 +21,8 @@ let g:EclimCompletionMethod = 'omnifunc'
 nnoremap <silent> <localleader>q :JavaDebugStop<CR>
 nnoremap <silent> <localleader>s :JavaDebugThreadSuspend<CR>
 nnoremap <silent> <localleader>r :JavaDebugThreadResume<CR>
-nnoremap <silent> <localleader>a :JavaDebugBreakpointToggle<CR>
-nnoremap <silent> <localleader>l :JavaDebugBreakpointsList!<CR>
+nnoremap <silent> <localleader>t :JavaDebugBreakpointToggle<CR>
+nnoremap <silent> <localleader>b :JavaDebugBreakpointsList!<CR>
 nnoremap <silent> ; :JavaDebugStep over<CR>
 nnoremap <silent> <localleader>e :JavaDebugStep into<CR>
 nnoremap <silent> <localleader>x :JavaDebugStep return<CR>

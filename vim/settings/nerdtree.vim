@@ -1,2 +1,2 @@
-nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
-nnoremap <silent> <Leader>sn :NERDTreeFind<CR>
+nnoremap <silent> <Leader>nt :NERDTreeToggle<CR>
+nnoremap <silent> <Leader>nf :NERDTreeFind<CR>
