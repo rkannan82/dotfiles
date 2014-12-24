@@ -67,8 +67,8 @@ map <right> <nop>
 nmap <leader>s :update<cr>
 
 nnoremap <leader>/ :noh<CR>
-nnoremap <leader>1 :setlocal number!<cr>
-"cnoremap jsh<CR> cd %:p:h<CR>:sh<CR>
+nnoremap <leader>1 :setlocal number!<CR>
+nnoremap <leader>p :set paste!<CR>
 
 "cnoremap colgrp echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
 

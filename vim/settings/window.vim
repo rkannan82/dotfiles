@@ -1,9 +1,12 @@
 " Mappings {{{
+map <C-J> <PageDown>
+map <C-K> <PageUp>
+
 " navigating splits
-noremap <C-J> <C-W>j
-noremap <C-K> <C-W>k
-noremap <C-H> <C-W>h
-noremap <C-L> <C-W>l
+noremap <A-J> <C-W>j
+noremap <A-K> <C-W>k
+noremap <A-H> <C-W>h
+noremap <A-L> <C-W>l
 
 " Resize current window
 noremap > <C-W>+4

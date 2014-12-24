@@ -6,5 +6,4 @@ set switchbuf=useopen
 nmap [w :bprevious<CR>
 nmap ]w :bnext<CR>
 
-" Close the current buffer and move to the last buffer that was being edited
-nmap <Leader>q :bd<CR>
+nmap <silent> <Leader>q :bd<CR>
