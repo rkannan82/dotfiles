@@ -1,1 +1,1 @@
-nnoremap <silent> <leader>b :BufExplorer<CR>
+nnoremap <silent> <Tab> :BufExplorer<CR>
