@@ -5,6 +5,8 @@ colorscheme solarized
 
 syntax enable
 
+"highlight CursorLine ctermfg=white ctermbg=10
+
 " Used for highlighting current line being debugged
 " Add it after enabling syntax. Otherwise, it will get cleared
 highlight EclimDebugLine ctermfg=white ctermbg=yellow

@@ -1,0 +1,9 @@
+osgi.instance.area.default=@user.home/.eclipse_workspace/default
+nailgun.server.port=9001
+
+# increase heap size
+-Xmx512M
+
+# increase perm gen size
+-XX:PermSize=64m
+-XX:MaxPermSize=256m
