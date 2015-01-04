@@ -17,6 +17,10 @@ let g:EclimValidateSortResults = 'severity'
 let g:EclimCompletionMethod = 'omnifunc'
 " }}}
 
+" mappings {{{
+nnoremap <silent> <F5> :ProjectRefreshAll<cr>
+" }}}
+
 " debugger mappings {{{
 nnoremap <silent> <localleader>q :JavaDebugStop<CR>
 nnoremap <silent> <localleader>s :JavaDebugThreadSuspend<CR>
