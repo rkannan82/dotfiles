@@ -64,7 +64,8 @@ map <down> <nop>
 map <left> <nop>
 map <right> <nop>
 
-nmap <leader>s :update<cr>
+inoremap <leader><leader> <Esc>
+nnoremap <leader>s :update<cr>
 
 nnoremap <leader>/ :noh<CR>
 nnoremap <leader>1 :setlocal number!<CR>
