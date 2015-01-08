@@ -1,26 +1,35 @@
 " Mappings {{{
-map <C-J> <PageDown>
-map <C-K> <PageUp>
+
+" Arrow keys are bad!
+nmap <up> <nop>
+nmap <down> <nop>
+nmap <left> <nop>
+nmap <right> <nop>
+
+nmap <C-J> <PageDown>
+nmap <C-K> <PageUp>
+nmap <C-H> ^
+nmap <C-L> $
 
 " navigating splits
-noremap <A-J> <C-W>j
-noremap <A-K> <C-W>k
-noremap <A-H> <C-W>h
-noremap <A-L> <C-W>l
+nnoremap <A-J> <C-W>j
+nnoremap <A-K> <C-W>k
+nnoremap <A-H> <C-W>h
+nnoremap <A-L> <C-W>l
 
 " Resize current window
-noremap > <C-W>+4
-noremap < <C-W>-4
+nnoremap <silent> > :vertical resize +4<CR>
+nnoremap <silent> < :vertical resize -4<CR>
 
-noremap mm :MaximizeWindow<CR>
+nnoremap mm :MaximizeWindow<CR>
 set winminheight=0
 set winminwidth=0
 
 " close preview window
-noremap <C-Z> <C-W>z
+nnoremap <C-Z> <C-W>z
 
 " close split
-noremap <C-Q> <C-W>q
+nnoremap <C-Q> <C-W>q
 " }}}
 
 " Tab formating {{{

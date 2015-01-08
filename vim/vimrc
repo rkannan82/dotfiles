@@ -58,12 +58,6 @@ set shortmess+=I
 " }}}
 
 " Mappings {{{
-" Arrow keys are bad!
-map <up> <nop>
-map <down> <nop>
-map <left> <nop>
-map <right> <nop>
-
 inoremap <leader><leader> <Esc>
 nnoremap <leader>s :update<cr>
 
