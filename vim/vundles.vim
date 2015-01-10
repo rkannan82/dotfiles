@@ -37,6 +37,7 @@ Plugin 'honza/vim-snippets'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'kien/ctrlp.vim'
+Plugin 'tpope/vim-repeat'
 
 
 " All of your Plugins must be added before the following line
