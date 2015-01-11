@@ -2,6 +2,7 @@
 let g:EclimLogLevel = 2
 let g:EclimLocateFileDefaultAction = 'edit'
 let g:EclimJavaSearchSingleResult = 'edit'
+let g:EclimScalaSearchSingleResult = 'edit'
 let g:EclimJavaSearchMapping = 1
 let g:EclimBrowser = 'chrome'
 let g:JavaImportExclude = [ "^com\.sun\..*", "^sun\..*", "^sunw\..*" ]
