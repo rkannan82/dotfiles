@@ -1,21 +1,19 @@
 " vim options {{{
-let g:EclimLogLevel = 2
+"let g:EclimLogLevel = 2
 let g:EclimLocateFileDefaultAction = 'edit'
 let g:EclimJavaSearchSingleResult = 'edit'
 let g:EclimScalaSearchSingleResult = 'edit'
-let g:EclimJavaSearchMapping = 1
 let g:EclimBrowser = 'chrome'
 let g:JavaImportExclude = [ "^com\.sun\..*", "^sun\..*", "^sunw\..*" ]
 let g:EclimLocateFileFuzzy = 0
 let g:EclimLocateFileScope = 'workspace'
 let g:EclimJavaImportPackageSeparationLevel = 1
 let g:EclimProjectTreeExpandPathOnOpen = 1
-let g:EclimMavenPomClasspathUpdate = 0
+let g:EclimMavenPomClasspathUpdate = 1
 let g:EclimVimFindSingleResult = 'vsplit'
-"let g:EclimXmlValidate = 0
+let g:EclimXmlValidate = 1
 let g:EclimLoclistSignText = '!'
 let g:EclimValidateSortResults = 'severity'
-let g:EclimCompletionMethod = 'omnifunc'
 " }}}
 
 " mappings {{{
