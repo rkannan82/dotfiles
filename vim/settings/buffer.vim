@@ -3,7 +3,9 @@ set hidden
 
 set switchbuf=useopen
 
-nmap [w :bprevious<CR>
-nmap ]w :bnext<CR>
+nmap [b :bprevious<CR>
+nmap ]b :bnext<CR>
 
-nmap <silent> <Leader>q :bd<CR>
+nmap <silent> <Leader>d :bd<CR>
+nmap <silent> <Leader>qo :copen<CR>
+nmap <silent> <Leader>qc :cclose<CR>
