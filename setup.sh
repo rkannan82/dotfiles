@@ -35,7 +35,7 @@ function setupVim() {
   files="$base_dir/vim/ftplugin/*"
   for file in $files
   do
-    ln -s $file ${HOME}/.vim/ftplugin/
+    ln -sf $file ${HOME}/.vim/ftplugin/
   done
 
   # Use vundle to install plugins
