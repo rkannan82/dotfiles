@@ -52,6 +52,11 @@ function setupVim() {
 function setupTmux() {
   backup "${HOME}/.tmux.conf"
   ln -sf $base_dir/tmux/tmux.conf ${HOME}/.tmux.conf
+
+  mkdir -p ${HOME}/.tmux/plugins
+  git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm
+  tmux source-file ${HOME}/.tmux.conf
+
   echo "Tmux setup complete"
 }
 
