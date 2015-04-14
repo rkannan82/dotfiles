@@ -12,10 +12,17 @@ nmap <C-H> ^
 nmap <C-L> $
 
 " navigating splits
-nnoremap <A-J> <C-W>j
-nnoremap <A-K> <C-W>k
-nnoremap <A-H> <C-W>h
-nnoremap <A-L> <C-W>l
+nnoremap <A-h> <C-W>h
+nnoremap <A-j> <C-W>j
+nnoremap <A-k> <C-W>k
+nnoremap <A-l> <C-W>l
+
+" navigating terminal
+"tnoremap <Esc> <C-\><C-n>
+"tnoremap <A-h> <C-\><C-n><C-w>h
+"tnoremap <A-j> <C-\><C-n><C-w>j
+"tnoremap <A-k> <C-\><C-n><C-w>k
+"tnoremap <A-l> <C-\><C-n><C-w>l
 
 " Resize current window
 nnoremap <silent> > :vertical resize +4<CR>
