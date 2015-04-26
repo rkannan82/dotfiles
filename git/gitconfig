@@ -2,7 +2,7 @@
 	name = Kannan Rajah
 	email = rkannan82@gmail.com
 [core]
-	editor = vim
+	editor = nvim
 [alias]
 	br = branch
 	c = commit

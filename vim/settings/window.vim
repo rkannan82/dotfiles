@@ -1,5 +1,11 @@
 " Mappings {{{
 
+" Fix issue with Ctrl-H being mapped to backspace on OSX
+" by running this command in terminal
+" https://github.com/neovim/neovim/issues/2048
+" $ infocmp $TERM | sed 's/kbs=^[hH]/kbs=\\177/' > $TERM.ti
+" $ tic $TERM.ti
+
 " Arrow keys are bad!
 nmap <up> <nop>
 nmap <down> <nop>
@@ -11,22 +17,34 @@ nmap <C-K> <PageUp>
 nmap <C-H> ^
 nmap <C-L> $
 
-" navigating splits
-nnoremap <A-h> <C-W>h
-nnoremap <A-j> <C-W>j
-nnoremap <A-k> <C-W>k
-nnoremap <A-l> <C-W>l
+" navigating splits using Alt-hjkl
+noremap ˙ <Esc><C-W>h
+noremap ∆ <Esc><C-W>j
+noremap ˚ <Esc><C-W>k
+noremap ¬ <Esc><C-W>l
 
-" navigating terminal
-"tnoremap <Esc> <C-\><C-n>
-"tnoremap <A-h> <C-\><C-n><C-w>h
-"tnoremap <A-j> <C-\><C-n><C-w>j
-"tnoremap <A-k> <C-\><C-n><C-w>k
-"tnoremap <A-l> <C-\><C-n><C-w>l
+" navigating tabs using Alt-op
+noremap π <Esc>:tabnext<CR>
+noremap ø <Esc>:tabprevious<CR>
 
-" Resize current window
+" navigating splits within terminal using Alt-hjkl
+tnoremap <leader><leader> <C-\><C-n>
+tnoremap ˙ <C-\><C-n><C-w>h
+tnoremap ∆ <C-\><C-n><C-w>j
+tnoremap ˚ <C-\><C-n><C-w>k
+tnoremap ¬ <C-\><C-n><C-w>l
+
+" navigating tabs within terminal using Alt-op
+tnoremap π <C-\><C-n>:tabnext<CR>
+tnoremap ø <C-\><C-n>:tabprevious<CR>
+
+" Resize vertical splits
 nnoremap <silent> > :vertical resize +4<CR>
 nnoremap <silent> < :vertical resize -4<CR>
+
+" Resize hotizontal splits
+nnoremap <silent> + :resize +4<CR>
+nnoremap <silent> _ :resize -4<CR>
 
 nnoremap mm :MaximizeWindow<CR>
 set winminheight=0
@@ -37,43 +55,4 @@ nnoremap <C-Z> <C-W>z
 
 " close split
 nnoremap <C-Q> <C-W>q
-" }}}
-
-" Tab formating {{{
-function! MyTabLabel(n)
-  let buflist = tabpagebuflist(a:n)
-  let winnr = tabpagewinnr(a:n)
-  let label = bufname(buflist[winnr - 1])
-  return fnamemodify(label, ":t")
-endfunction
-
-function! MyTabLine()
-  let s = ''
-  for i in range(tabpagenr('$'))
-    " select the highlighting
-    if i + 1 == tabpagenr()
-      let s .= '%#TabLineSel#'
-    else
-      let s .= '%#TabLine#'
-    endif
-
-    " set the tab page number (for mouse clicks)
-    let s .= '%' . (i + 1) . 'T'
-
-    " the label is made by MyTabLabel()
-    let s .= ' %{MyTabLabel(' . (i + 1) . ')} '
-  endfor
-
-  " after the last tab fill with TabLineFill and reset tab page nr
-  let s .= '%#TabLineFill#%T'
-
-  " right-align the label to close the current tab page
-  if tabpagenr('$') > 1
-    let s .= '%=%#TabLine#%999Xclose'
-  endif
-
-  return s
-endfunction
-
-set tabline=%!MyTabLine()
 " }}}
