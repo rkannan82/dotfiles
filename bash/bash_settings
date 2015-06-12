@@ -1,14 +1,13 @@
 export TERM="xterm-256color"
 
-basedir=${HOME}/dotfiles
 PS1="\u@\h:\w$ "
 
-if [ -f $basedir/bash/bash_aliases ]; then
-    . $basedir/bash/bash_aliases
+if [ -f ${DOTFILES_DIR}/bash/bash_aliases ]; then
+    . ${DOTFILES_DIR}/bash/bash_aliases
 fi
 
-if [ -f $basedir/bash/bash_funcs ]; then
-    . $basedir/bash/bash_funcs
+if [ -f ${DOTFILES_DIR}/bash/bash_funcs ]; then
+    . ${DOTFILES_DIR}/bash/bash_funcs
 fi
 
 if [ -f ${HOME}/Code/utils/env.sh ]; then

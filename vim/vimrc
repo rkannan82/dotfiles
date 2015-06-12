@@ -2,10 +2,10 @@ let mapleader=","
 let maplocalleader="\\"
 
 " Needed to manage plugins.
-so $HOME/dotfiles/vim/vundles.vim
+so ${DOTFILES_DIR}/vim/vundles.vim
 
 " Import all other VIM settings
-so $HOME/dotfiles/vim/settings.vim
+so ${DOTFILES_DIR}/vim/settings.vim
 
 " Auto commands {{{
 augroup filetype_vim
@@ -69,7 +69,6 @@ nnoremap <leader>p :set paste!<CR>
 
 " remove trailing spaces
 nnoremap `` :call TrimWhiteSpace()<CR>
-nnoremap <leader>f :LocateFile<CR>
 nnoremap <leader>g :execute "grep! -R " . shellescape(expand("<cWORD>")) . " " . expand('%:p')<cr>:copen<cr>
 " }}}
 

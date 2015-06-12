@@ -17,27 +17,6 @@ nmap <C-K> <PageUp>
 nmap <C-H> ^
 nmap <C-L> $
 
-" navigating splits using Alt-hjkl
-noremap ˙ <Esc><C-W>h
-noremap ∆ <Esc><C-W>j
-noremap ˚ <Esc><C-W>k
-noremap ¬ <Esc><C-W>l
-
-" navigating tabs using Alt-op
-noremap π <Esc>:tabnext<CR>
-noremap ø <Esc>:tabprevious<CR>
-
-" navigating splits within terminal using Alt-hjkl
-tnoremap <leader><leader> <C-\><C-n>
-tnoremap ˙ <C-\><C-n><C-w>h
-tnoremap ∆ <C-\><C-n><C-w>j
-tnoremap ˚ <C-\><C-n><C-w>k
-tnoremap ¬ <C-\><C-n><C-w>l
-
-" navigating tabs within terminal using Alt-op
-tnoremap π <C-\><C-n>:tabnext<CR>
-tnoremap ø <C-\><C-n>:tabprevious<CR>
-
 " Resize vertical splits
 nnoremap <silent> > :vertical resize +4<CR>
 nnoremap <silent> < :vertical resize -4<CR>
@@ -52,7 +31,4 @@ set winminwidth=0
 
 " close preview window
 nnoremap <C-Z> <C-W>z
-
-" close split
-nnoremap <C-Q> <C-W>q
 " }}}

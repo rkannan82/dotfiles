@@ -1,0 +1,4 @@
+so ${DOTFILES_DIR}/vim/vimrc
+
+" Import all other NVIM settings
+so ${DOTFILES_DIR}/nvim/settings.vim

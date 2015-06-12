@@ -17,6 +17,7 @@ let g:EclimValidateSortResults = 'severity'
 
 " mappings {{{
 nnoremap <silent> <F5> :ProjectRefreshAll<cr>
+nnoremap <leader>f :LocateFile<CR>
 " }}}
 
 " debugger mappings {{{

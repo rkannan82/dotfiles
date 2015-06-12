@@ -39,6 +39,7 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-repeat'
 Plugin 'szw/vim-ctrlspace'
+"Plugin 'gcmt/taboo.vim'
 
 
 " All of your Plugins must be added before the following line
