@@ -10,8 +10,19 @@ function backup() {
 }
 
 function setupTerm() {
-  git clone https://git@github.com:altercation/solarized.git $HOME/solarized
-  git clone git@github.com:powerline/fonts.git $HOME/powerline-fonts
+  if [ ! -d ${HOME}/solarized ]; then
+    git clone git@github.com:altercation/solarized.git $HOME/solarized
+  fi
+
+  if [ ! -d ${HOME}/powerline-fonts ]; then
+    git clone git@github.com:powerline/fonts.git $HOME/powerline-fonts
+  fi
+
+  if [ $platform == "mac" ]; then
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  elif [ $platform == "linux" ]; then
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install)"
+  fi
 
   echo "Term setup complete"
 }
@@ -25,6 +36,8 @@ function setupBash() {
 
   backup "${HOME}/.bash_profile"
   ln -sf ${dotfiles_dir}/bash/bash_profile ${HOME}/.bash_profile
+
+  . ${HOME}/.bashrc
 
   echo "Bash setup complete"
 }
@@ -61,6 +74,11 @@ function setupVim() {
   mkdir -p $colors_dir
   ln -sf ${HOME}/.vim/bundle/vim-colors-solarized/colors/solarized.vim $colors_dir/solarized.vim
 
+  brew install vim
+
+  brew tap neovim/neovim
+  brew install --HEAD neovim
+
   echo "VIM setup complete"
 }
 
@@ -69,8 +87,9 @@ function setupTmux() {
   ln -sf ${dotfiles_dir}/tmux/tmux.conf ${HOME}/.tmux.conf
 
   mkdir -p ${HOME}/.tmux/plugins
-  git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm
-  tmux source-file ${HOME}/.tmux.conf
+  if [ ! -d ${HOME}/.tmux/plugins/tpm ]; then
+    git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm
+  fi
 
   echo "Tmux setup complete"
 }
@@ -90,6 +109,13 @@ function setupEclim() {
 # Bail out on failure
 set -e
 
+platform="unknown"
+if [ "$OSTYPE" == "linux-gnu" ]; then
+  platform="linux"
+elif [ "$OSTYPE" == "darwin"* ]; then
+  platform="mac"
+fi
+
 dotfiles_rel_path=`dirname ${BASH_SOURCE[0]}`
 dotfiles_dir=`cd ${dotfiles_rel_path} && pwd`
 
@@ -104,5 +130,3 @@ setupGit
 setupEclim
 
 echo "Done!"
-
-bash
