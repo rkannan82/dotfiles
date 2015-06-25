@@ -34,10 +34,22 @@ function setupBash() {
   echo ". ${dotfiles_dir}/bash/bash_settings" >> ${HOME}/.bashrc
   echo "#######################################" >> ${HOME}/.bashrc
 
+  if [ $platform == "linux" ]; then
+    # solarized dircolors
+    wget –no-check-certificate https://raw.github.com/seebi/dircolors-solarized/master/dircolors.ansi-dark
+    mv dircolors.ansi-dark ${HOME}/dircolors
+    eval dircolors ${HOME}/dircolors
+
+    # Homebrew
+    echo "export PATH=\"$HOME/.linuxbrew/bin:$PATH\""
+    echo "export MANPATH=\"$HOME/.linuxbrew/share/man:$MANPATH\""
+    echo "export INFOPATH=\"$HOME/.linuxbrew/share/info:$INFOPATH\""
+  fi
+
   backup "${HOME}/.bash_profile"
   ln -sf ${dotfiles_dir}/bash/bash_profile ${HOME}/.bash_profile
 
-  . ${HOME}/.bashrc
+  source ${HOME}/.bashrc
 
   echo "Bash setup complete"
 }
@@ -75,7 +87,6 @@ function setupVim() {
   ln -sf ${HOME}/.vim/bundle/vim-colors-solarized/colors/solarized.vim $colors_dir/solarized.vim
 
   brew install vim
-
   brew tap neovim/neovim
   brew install --HEAD neovim
 
