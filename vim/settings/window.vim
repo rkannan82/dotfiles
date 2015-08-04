@@ -17,6 +17,10 @@ nmap <C-K> <PageUp>
 nmap <C-H> ^
 nmap <C-L> $
 
+" Navigation
+nnoremap <tab>   <c-w>W
+nnoremap <S-tab> <c-w>w
+
 " Resize vertical splits
 nnoremap <silent> > :vertical resize +4<CR>
 nnoremap <silent> < :vertical resize -4<CR>

@@ -1,4 +1,3 @@
-" My preference with using buffers. See `:h hidden` for more details
 set hidden
 
 set switchbuf=useopen
