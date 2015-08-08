@@ -18,8 +18,8 @@ nmap <C-H> ^
 nmap <C-L> $
 
 " Navigation
-nnoremap <tab>   <c-w>W
-nnoremap <S-tab> <c-w>w
+nnoremap <tab>   <c-w>w
+nnoremap <S-tab> <c-w>W
 
 " Resize vertical splits
 nnoremap <silent> > :vertical resize +4<CR>

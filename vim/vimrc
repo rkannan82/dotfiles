@@ -12,10 +12,6 @@ augroup filetype_vim
   autocmd!
   autocmd FileType vim setlocal foldmethod=marker
 augroup END
-
-"autocmd FileWritePre *.java,*.xml :call TrimWhiteSpace()
-"autocmd FileAppendPre *.java,*.xml :call TrimWhiteSpace()
-"autocmd BufWritePre *.java,*.xml :call TrimWhiteSpace()
 " }}}
 
 " Options {{{
@@ -28,6 +24,7 @@ set ruler
 set vb t_vb=
 set autoindent
 set incsearch
+set ignorecase
 set smartcase
 set noic
 set showmode
@@ -44,7 +41,7 @@ set smarttab
 " 1 tab == 2 spaces
 set shiftwidth=2
 set tabstop=2
-" auto format lines using textwidth 
+" auto format lines using textwidth
 set textwidth=80
 set formatoptions+=t
 set completeopt+=longest
@@ -54,88 +51,39 @@ set laststatus=2
 " don't display welcome
 set shortmess+=I
 
-"set colorcolumn=80
+" qq to record, Q to replay
+nnoremap Q @q
 " }}}
 
 " Mappings {{{
 inoremap <leader><leader> <Esc>
-nnoremap <leader>s :update<cr>
 
+nnoremap <leader>w :update<cr>
 nnoremap <leader>/ :noh<CR>
 nnoremap <leader>1 :setlocal number!<CR>
 nnoremap <leader>p :set paste!<CR>
-
-"cnoremap colgrp echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
-
-" remove trailing spaces
-nnoremap `` :call TrimWhiteSpace()<CR>
+nnoremap <silent> <leader>q :QFix<CR>
 nnoremap <leader>g :execute "grep! -R " . shellescape(expand("<cWORD>")) . " " . expand('%:p')<cr>:copen<cr>
 " }}}
 
 " Functions {{{
-" Toggle highlighting long lines.
-function! s:ShowLongLines() " {{{
-  if exists('w:long_line_match')
-    silent! call matchdelete(w:long_line_match)
-    unlet w:long_line_match
-  elseif &textwidth > 0
-    let w:long_line_match = matchadd('ErrorMsg', '\%>'.&tw.'v.\+', -1)
-  else
-    let w:long_line_match = matchadd('ErrorMsg', '\%>80v.\+', -1)
-  endif
-endfunction
-command! -complete=shellcmd -nargs=0 LongLines call s:ShowLongLines()
-" }}}
-
-" Executes a command in shell.
-function! s:ExecuteInShell(command) " {{{
-  let command = join(map(split(a:command), 'expand(v:val)'))
-  let winnr = bufwinnr('^' . command . '$')
-  silent! execute  winnr < 0 ? 'botright new ' . fnameescape(command) : winnr . 'wincmd w'
-  setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap number
-  echo 'Execute ' . command . '...'
-  silent! execute 'silent %!'. command
-  silent! execute 'resize ' . line('$')
-  silent! redraw
-  silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
-  silent! execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>'
-  echo 'Shell command ' . command . ' executed.'
-endfunction
-command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
-" }}}
-
-" Trims trailing white spaces.
-function! TrimWhiteSpace() " {{{
-  let cursor_pos = getpos(".")
-  silent! %s/\s\+$//
-  call setpos('.', cursor_pos)
-:endfunction
-" }}}
-
-" Inserts copyright.
-function! InsertCopyright(file) " {{{
-  normal ma
-  exec "0r" . a:file
-  normal 'a
-:endfunction
-
-command CopyrightHadoop :call InsertCopyright("$HOME/Code/utils/hadoop_copyright.txt")
-command CopyrightMapR :call InsertCopyright("$HOME/Code/utils/mapr_copyright.txt")
-" }}}
-
-" Highlights word under cursor without moving cursor.
-function! Highlight() " {{{
-  let @/ = '\<'.expand('<cword>').'\>'
-  return ":silent set hlsearch\<CR>"
-endfunction
-nnoremap <silent> <expr> <leader>* Highlight()
-" }}}
-
 " Show highlighting group used at the cursor
-function! HighlightGroup() " {{{
+function! HighlightGroup()
 echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
   \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
   \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
 endfunction
 " }}}
+
+" Toggle quickfix {{{
+command -bang -nargs=? QFix call QFixToggle(<bang>0)
+function! QFixToggle(forced)
+  if exists("g:qfix_win") && a:forced == 0
+    cclose
+    unlet g:qfix_win
+  else
+    copen 10
+    let g:qfix_win = bufnr("$")
+  endif
+endfunction
 " }}}
