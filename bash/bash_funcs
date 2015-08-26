@@ -22,7 +22,11 @@ function mm() {
   elif [ $1 == "t" ]; then
     cmd="$base_cmd -Dtest=$2"
   fi
-  
+
   echo "Running: $cmd"
   $cmd
+}
+
+function git_branch() {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/[\1]: /'
 }
