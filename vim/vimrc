@@ -26,7 +26,7 @@ set autoindent
 set incsearch
 set ignorecase
 set smartcase
-set noic
+set ic
 set showmode
 let loaded_matchparen=1
 set updatetime=1000
