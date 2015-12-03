@@ -17,7 +17,7 @@ nmap <C-K> <PageUp>
 nmap <C-H> ^
 nmap <C-L> $
 
-" Navigation
+" Navigating windows in a tab.
 nnoremap <tab>   <c-w>w
 nnoremap <S-tab> <c-w>W
 
