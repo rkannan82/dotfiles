@@ -39,6 +39,7 @@ Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'vim-scripts/gtags.vim'
 Plugin 'ntpeters/vim-better-whitespace'
+Plugin 'szw/vim-ctrlspace'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required

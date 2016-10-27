@@ -1,5 +1,6 @@
 " vim options {{{
 "let g:EclimLogLevel = 2
+let g:EclimCompletionMethod = 'omnifunc'
 let g:EclimLocateFileDefaultAction = 'edit'
 let g:EclimJavaSearchSingleResult = 'split'
 let g:EclimScalaSearchSingleResult = 'split'
