@@ -4,7 +4,8 @@ colorscheme solarized
 
 syntax enable
 
-"highlight CursorLine ctermfg=white ctermbg=10
+"highlight CursorLine ctermfg=black ctermbg=30
+"highlight Search term=reverse cterm=reverse ctermfg=10 ctermbg=0
 
 " Used for highlighting current line being debugged
 " Add it after enabling syntax. Otherwise, it will get cleared

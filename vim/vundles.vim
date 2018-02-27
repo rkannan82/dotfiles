@@ -40,6 +40,10 @@ Plugin 'honza/vim-snippets'
 Plugin 'vim-scripts/gtags.vim'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'szw/vim-ctrlspace'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'dracula/vim'
+Plugin 'jacoborus/tender.vim'
+Bundle 'sonph/onehalf', {'rtp': 'vim/'}
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required

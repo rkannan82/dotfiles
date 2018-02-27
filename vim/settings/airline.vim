@@ -1,6 +1,7 @@
 "let g:airline_theme='tomorrow'
 "let g:airline_theme='murmur'
 let g:airline_theme='luna'
+"let g:airline_theme='onehalfdark'
 
 " {{{ tabline
 let g:airline#extensions#tabline#enabled=2

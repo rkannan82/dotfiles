@@ -1,6 +1,6 @@
 [user]
-	name =
-	email =
+	name = Kannan Rajah
+	email = kannanr@google.com
 [core]
 	editor = vim
 [alias]
@@ -16,6 +16,7 @@
 	lsd = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
 	lsdr = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
 	amend = commit --amend --no-edit
+  graph = log --graph --oneline
 
 [color]
 	ui = true

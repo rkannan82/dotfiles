@@ -12,7 +12,6 @@ noremap <A-k> <Esc><C-W>k
 noremap <A-l> <Esc><C-W>l
 
 nnoremap <C-t> :tabnew<CR>
-nnoremap <C-w> :tabclose<CR>
 
 " Navigating tabs
 noremap <S-right> <Esc>:tabnext<CR>
