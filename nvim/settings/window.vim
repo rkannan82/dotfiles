@@ -1,3 +1,5 @@
+set guicursor=a:ver25
+
 augroup Terminal
   au!
   au TermOpen * let g:last_terminal_job_id = b:terminal_job_id
