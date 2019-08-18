@@ -1,7 +1,7 @@
 set t_Co=256
 set background=dark
-"colorscheme onedark
-colorscheme solarized
+set tgc
+colorscheme onedark
 
 syntax enable
 

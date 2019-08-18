@@ -1,5 +1,19 @@
+" Mappings {{{
+" set a map leader for more key combos
 let mapleader=","
 let maplocalleader="\\"
+
+" remap esc
+"inoremap <esc>  <NOP>
+"inoremap jk <esc>
+"
+" shortcut to save
+nmap <leader>, :w<cr>
+
+nnoremap <silent> <leader>/ :noh<CR>
+nnoremap <silent> <leader>qq :call QuickFixToggle()<CR>
+nnoremap <leader>g :execute "grep! -R " . shellescape(expand("<cWORD>")) . " " . expand('%:p')<cr>:copen<cr>
+" }}}
 
 " Needed to manage plugins.
 so ${DOTFILES_DIR}/vim/vundles.vim
@@ -8,7 +22,7 @@ so ${DOTFILES_DIR}/vim/vundles.vim
 so ${DOTFILES_DIR}/vim/settings.vim
 
 " CDC = Change to Directory of Current file
-command CDC cd %:p:h
+command! Cdc cd %:p:h
 
 if (has("nvim"))
   "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
@@ -20,6 +34,16 @@ endif
 if (has("termguicolors"))
   "set termguicolors
 endif
+
+au User lsp_setup call lsp#register_server({
+    \ 'name': 'CiderLSP',
+    \ 'cmd': {server_info->[
+    \   '/google/bin/releases/editor-devtools/ciderlsp',
+    \   '--tooltag=vim-lsp',
+    \   '--noforward_sync_responses',
+    \ ]},
+    \ 'whitelist': ['c', 'cc', 'cpp', 'proto', 'textproto', 'go'],
+    \})
 
 " Auto commands {{{
 augroup filetype_vim
@@ -39,7 +63,6 @@ set ruler
 set vb t_vb=
 set autoindent
 set incsearch
-set ignorecase
 set smartcase
 set ic
 set showmode
@@ -71,17 +94,7 @@ set shortmess+=I
 nnoremap Q @q
 " }}}
 
-" Mappings {{{
-inoremap <leader><leader> <Esc>
-
-nnoremap <leader>w :update<cr>
-nnoremap <leader>/ :noh<CR>
-nnoremap <silent> <leader>qq :QFix<CR>
-nnoremap <leader>g :execute "grep! -R " . shellescape(expand("<cWORD>")) . " " . expand('%:p')<cr>:copen<cr>
-" }}}
-
-" Functions {{{
-" Show highlighting group used at the cursor
+" Show highlighting group used at the cursor {{{
 function! HighlightGroup()
 echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
   \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
@@ -90,9 +103,8 @@ endfunction
 " }}}
 
 " Toggle quickfix {{{
-command -bang -nargs=? QFix call QFixToggle(<bang>0)
-function! QFixToggle(forced)
-  if exists("g:qfix_win") && a:forced == 0
+function! QuickFixToggle()
+  if exists("g:qfix_win")
     cclose
     unlet g:qfix_win
   else
