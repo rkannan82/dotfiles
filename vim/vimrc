@@ -15,9 +15,6 @@ nnoremap <silent> <leader>qq :call QuickFixToggle()<CR>
 nnoremap <leader>g :execute "grep! -R " . shellescape(expand("<cWORD>")) . " " . expand('%:p')<cr>:copen<cr>
 " }}}
 
-" Needed to manage plugins.
-so ${DOTFILES_DIR}/vim/vundles.vim
-
 " Import all other VIM settings
 so ${DOTFILES_DIR}/vim/settings.vim
 

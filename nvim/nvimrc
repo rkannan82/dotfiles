@@ -1,3 +1,39 @@
+" Specify a directory for plugins
+call plug#begin('~/.local/share/nvim/plugged')
+
+Plug 'junegunn/vim-easy-align'
+Plug 'bling/vim-airline'
+Plug 'edkolev/tmuxline.vim'
+Plug 'ervandew/maximize'
+Plug 'majutsushi/tagbar'
+Plug 'altercation/vim-colors-solarized'
+Plug 'xolox/vim-session'
+Plug 'xolox/vim-misc'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-dispatch'
+Plug 'duff/vim-bufonly'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+Plug 'Lokaltog/powerline-fonts'
+Plug 'kien/ctrlp.vim'
+Plug 'tpope/vim-repeat'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'vim-scripts/gtags.vim'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'dracula/vim'
+Plug 'jacoborus/tender.vim'
+Plug 'joshdick/onedark.vim'
+Plug 'rakr/vim-one'
+Plug 'chriskempson/base16-vim'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Initialize plugin system
+call plug#end()
+
 so ${DOTFILES_DIR}/vim/vimrc
 
 " Import all other NVIM settings
