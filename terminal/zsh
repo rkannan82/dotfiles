@@ -1,0 +1,17 @@
+export PS1="%/ $ "
+
+# Alias
+alias cls="clear"
+alias vi="vim"
+alias ls="ls -G"
+alias ll="ls -al"
+
+# Functions
+# Find file
+function ff() {
+  if [ $# = 1 ]; then
+    find . -name $1 -print
+  else
+    find $1 -name $2 -print
+  fi
+}
