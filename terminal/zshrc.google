@@ -1,0 +1,58 @@
+######### Importing settings ##########
+export DOTFILES_DIR=${HOME}/Code/dotfiles
+source ${DOTFILES_DIR}/terminal/zsh
+#######################################
+source /etc/bash_completion.d/g4d
+
+PROMPT_PREFIX=""
+
+export dev_host=kworks.c.googlers.com
+
+alias sdev="ssh $dev_host"
+alias dev="ssh $dev_host -t tmx2 a"
+
+F1_TOOLS="/google/data/ro/projects/storage/f1/tools"
+BOLT_UTILS_DIR="$HOME/Code/scripts/bolt"
+BREW="$HOME/.linuxbrew/bin"
+export PATH="$HOME/.local/bin/:$UTILS_DIR/:$IWYU_DIR:$BT_UTILS_DIR:$ANALYTICS_UTILS_DIR:$F1_TOOLS:$BOLT_UTILS_DIR:$BREW:$PATH"
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
+export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
+
+alias code="tmx2 attach-session -t"
+export CLANG_TOOLS_TRACK=llvm_unstable
+
+alias pa="prodaccess --corp_ssh"
+alias fu="fileutil"
+alias flex=/google/data/ro/projects/flex/flex.par
+alias mux="tmux -CC attach"
+
+# Dir shortcuts.
+alias @p4head="cd /google/src/files/head/depot/google3"
+
+# Commands.
+alias conduit="/google/data/ro/teams/conduit/conduit/conduit_live/conduit"
+alias vi_bolt="./monitoring/viceroy/bin/launch.sh viceroy --dashboard bolt local"
+alias vi_bolt_dev="./monitoring/viceroy/bin/launch.sh viceroy --dashboard bolt_dev local"
+alias flowmon="/google/data/ro/teams/flowmon/cli/flowmon"
+
+# Jump to citc dir.
+function hgd () {
+  citc_name=${1}
+  `hg citc $citc_name -q`
+}
+
+function scp_from_dev() {
+  file=$1
+  scp $dev_host:$file $HOME/
+}
+
+# Jump between blaze-bin and current location.
+function bb() {
+  if [[ $PWD =~ '(.*)/blaze-bin(.*)' ]]; then
+    cd "${match[1]}${match[2]}"
+  else
+    cd "${PWD/\/google3//google3/blaze-bin}"
+  fi
+}
