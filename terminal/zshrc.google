@@ -8,8 +8,8 @@ PROMPT_PREFIX=""
 
 export dev_host=kworks.c.googlers.com
 
-alias sdev="ssh $dev_host"
-alias dev="ssh $dev_host -t tmx2 a"
+alias sdev="ssh $dev_host -Y -C -o ControlPath=none"
+alias dev="ssh $dev_host -Y -C -o ControlPath=none -t tmx2 a"
 
 F1_TOOLS="/google/data/ro/projects/storage/f1/tools"
 BOLT_UTILS_DIR="$HOME/Code/scripts/bolt"

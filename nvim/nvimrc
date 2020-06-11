@@ -1,7 +1,9 @@
+"{{{ plugins
 " Specify a directory for plugins
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'bling/vim-airline'
 Plug 'edkolev/tmuxline.vim'
 Plug 'ervandew/maximize'
@@ -34,7 +36,475 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Initialize plugin system
 call plug#end()
 
-so ${DOTFILES_DIR}/vim/vimrc
+"}}}
 
-" Import all other NVIM settings
-so ${DOTFILES_DIR}/nvim/settings.vim
+"For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
+"{{{ auto commands
+augroup filetype_vim
+  autocmd!
+  autocmd FileType vim setlocal foldmethod=marker
+augroup END
+"}}}
+
+" CDC = Change to Directory of Current file
+command! Cdc cd %:p:h
+
+"{{{ options
+filetype plugin on
+filetype indent on
+
+set mouse=a
+set hls
+set nu
+set ruler
+set vb t_vb=
+set autoindent
+set incsearch
+set smartcase
+set ic
+set showmode
+let loaded_matchparen=1
+set updatetime=1000
+set showtabline=0
+set modifiable
+set nobackup
+set nowb
+set noswapfile
+set expandtab
+set cursorline
+set smarttab
+" 1 tab == 2 spaces
+set shiftwidth=2
+set tabstop=2
+" auto format lines using textwidth
+set textwidth=80
+set formatoptions+=tj
+set completeopt+=longest
+set nojoinspaces
+
+set laststatus=2
+
+" don't display welcome
+set shortmess+=I
+
+" qq to record, Q to replay
+nnoremap Q @q
+"}}}
+
+"{{{ colors
+set t_Co=256
+set background=dark
+set tgc
+colorscheme onedark
+
+syntax enable
+
+"highlight CursorLine ctermfg=black ctermbg=30
+"highlight Search term=reverse cterm=reverse ctermfg=10 ctermbg=0
+
+" Used for highlighting current line being debugged
+" Add it after enabling syntax. Otherwise, it will get cleared
+highlight EclimDebugLine ctermfg=white ctermbg=yellow
+
+" Override the default red color from solarized
+highlight WarningMsg     ctermfg=gray
+
+" Make the sign colum color same as line number column
+highlight clear SignColumn
+"}}}
+
+"{{{ fzf
+noremap <C-P> :FZF<CR>
+"}}}
+
+"{{{ windowing
+set guicursor=a:ver25
+
+augroup Terminal
+  au!
+  au TermOpen * let g:last_terminal_job_id = b:terminal_job_id
+  au BufEnter term://* startinsert
+augroup END
+
+" Arrow keys are bad!
+nmap <up> <nop>
+nmap <down> <nop>
+nmap <left> <nop>
+nmap <right> <nop>
+
+nmap <C-J> <PageDown>
+nmap <C-K> <PageUp>
+nmap <C-H> ^
+nmap <C-L> $
+
+" Navigating windows in a tab.
+nnoremap <tab>   <c-w>w
+nnoremap <S-tab> <c-w>W
+
+" Resize vertical splits
+nnoremap <silent> > :vertical resize +4<CR>
+nnoremap <silent> < :vertical resize -4<CR>
+
+" Resize hotizontal splits
+nnoremap <silent> + :resize +4<CR>
+nnoremap <silent> _ :resize -4<CR>
+
+nnoremap mm :MaximizeWindow<CR>
+set winminheight=0
+set winminwidth=0
+
+" close preview window
+nnoremap <C-Z> <C-W>z
+" Navigating splits using Alt-hjkl
+noremap <A-h> <Esc><C-W>h
+noremap <A-j> <Esc><C-W>j
+noremap <A-k> <Esc><C-W>k
+noremap <A-l> <Esc><C-W>l
+
+nnoremap <C-t> :tabnew<CR>
+
+" Navigating tabs
+noremap <S-right> <Esc>:tabnext<CR>
+noremap <S-left> <Esc>:tabprevious<CR>
+
+" Navigating splits within terminal using Alt-hjkl
+tnoremap <leader><leader> <C-\><C-n>
+tnoremap <A-h> <C-\><C-n><C-w>h
+tnoremap <A-j> <C-\><C-n><C-w>j
+tnoremap <A-k> <C-\><C-n><C-w>k
+tnoremap <A-l> <C-\><C-n><C-w>l
+
+" Navigating tabs within terminal
+tnoremap <S-right> <C-\><C-n>:tabnext<CR>
+tnoremap <S-left> <C-\><C-n>:tabprevious<CR>
+"}}}
+
+"{{{ session
+set sessionoptions-=help
+set sessionoptions-=buffers
+set sessionoptions-=options
+"let g:session_autosave='yes'
+"let g:session_autosave_periodic='2'
+"}}}
+
+"{{{ show highlighting group used at the cursor
+function! HighlightGroup()
+echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+  \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+  \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
+endfunction
+"}}}
+
+"{{{ toggle quickfix
+function! QuickFixToggle()
+  if exists("g:qfix_win")
+    cclose
+    unlet g:qfix_win
+  else
+    copen 10
+    let g:qfix_win = bufnr("$")
+  endif
+endfunction
+"}}}
+
+"{{{ google
+set runtimepath+=/usr/share/vim/google/maktaba/
+call maktaba#json#python#Disable()
+
+source /usr/share/vim/google/google.vim
+
+Glug blaze
+Glug blazedeps
+Glug codefmt
+Glug codefmt-google
+Glug corpweb
+Glug g4
+Glug grok
+Glug outline-window
+Glug piper
+Glug refactorer
+Glug relatedfiles
+Glug syntastic-google
+Glug ultisnips-google
+"Glug youcompleteme-google
+
+" settings {{{
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "gsnippets"]
+" }}}
+
+" mappings {{{
+Glug relatedfiles plugin[mappings]='<leader>rf'
+Glug codefmt plugin[mappings]
+"Glug blaze plugin[mappings]
+" }}}
+
+" Functions {{{
+function! WorkspaceNew(citc_name) abort
+  :wa
+  exec '!hg citc ' a:citc_name
+  echo 'Workspace created - ' a:citc_name
+  call WorkspaceLoad(a:citc_name)
+endfunction
+command! -bang -nargs=1 WorkspaceNew call WorkspaceNew(<f-args>)
+
+function! WorkspaceLoad(citc_name) abort
+  :wa
+  let g:citc_workspace = '/google/src/cloud/'. $USER . '/' . a:citc_name . '/google3/'
+  exec 'cd' fnameescape(g:citc_workspace)
+  echo 'Workspace loaded - ' a:citc_name
+  call ProjectLoad()
+endfunction
+command! -bang -nargs=1 WorkspaceLoad call WorkspaceLoad(<f-args>)
+
+function! ProjectLoad()
+  let project_dir = g:citc_workspace . 'analysis/conduit/worker'
+  exec 'cd' project_dir
+endfunction
+
+" }}}
+
+"Normal mode.
+nnoremap <leader>cf :let g:clang_include_fixer_query_mode=0<cr>:pyf /usr/lib/clang-include-fixer/clang-include-fixer.py<cr>
+"Query mode.
+nnoremap <leader>qf :let g:clang_include_fixer_query_mode=1<cr>:pyf /usr/lib/clang-include-fixer/clang-include-fixer.py<cr>
+
+noremap <leader>cr :pyf /google/src/head/depot/google3/third_party/llvm/llvm/tools/clang/tools/extra/clang-rename/tool/clang-rename.py<cr>
+au User lsp_setup call lsp#register_server({
+
+    \ 'name': 'CiderLSP',
+    \ 'cmd': {server_info->[
+    \   '/google/bin/releases/editor-devtools/ciderlsp',
+    \   '--tooltag=vim-lsp',
+    \   '--noforward_sync_responses',
+    \ ]},
+    \ 'whitelist': ['c', 'cc', 'cpp', 'proto', 'textproto', 'go'],
+    \})
+
+" }}}
+
+" commands {{{
+command! -bang -nargs=? Bug put ='BUG=123652066'
+command! -bang -nargs=? Rev put ='R=princem,xiuqi'
+" }}}
+
+"{{{ blaze
+let g:blaze_lib_suffix=0
+
+function! BlazeBuild()
+  let target=substitute(expand('%:p:h:r') . ':' . expand('%:t:r'), g:citc_workspace, '', '')
+  if g:blaze_lib_suffix == 1
+    let target=target . '_lib'
+  endif
+  exec 'Dispatch blaze build //' . target
+endfunction
+
+function! BlazeTest()
+  let target=substitute(expand('%:p:h:r') . ':' . expand('%:t:r'), g:citc_workspace, '', '')
+  if (matchstr (target, "_test$") == "")
+    let target=target . '_test'
+  endif
+  exec 'Dispatch blaze test //' . target
+endfunction
+
+function! BuildCleaner()
+  let target=substitute(expand('%:p:h:r') . ':' . expand('%:t:r'), g:citc_workspace, '', '')
+  if g:blaze_lib_suffix == 1
+    let target=target . '_lib'
+  endif
+  exec 'Dispatch build_cleaner //' . target
+endfunction
+
+function! OpenTestLog()
+  let target=substitute(expand('%:p:r'), g:citc_workspace, '', '')
+  if (matchstr (target, "_test$") == "")
+    let target=target . '_test'
+  endif
+  let test_log=g:citc_workspace . 'blaze-testlogs/' . target . '/test.log'
+  " Open file and go to end.
+  exec 'vsp + ' . test_log
+endfunction
+
+nnoremap <silent> <leader>bb :call BlazeBuild()<CR>
+nnoremap <silent> <leader>bt :call BlazeTest()<CR>
+nnoremap <silent> <leader>bc :call BuildCleaner()<CR>
+nnoremap <silent> <leader>bl :call OpenTestLog()<CR>
+"}}}
+
+"{{{ completion - coc
+" if hidden is not set, TextEdit might fail.
+set hidden
+
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
+" Better display for messages
+set cmdheight=2
+
+" Smaller updatetime for CursorHold & CursorHoldI
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[c` and `]c` to navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+vmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+vmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+
+" Add diagnostic info for https://github.com/itchyny/lightline.vim
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'cocstatus': 'coc#status'
+      \ },
+      \ }
+
+
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+""}}}
+
+"{{{ nerdcommenter
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+"}}}
+
+"{{{ nerdtree
+let NERDTreeShowBookmarks=1
+let NERDTreeMouseMode=3
+let NERDTreeWinSize=40
+
+nnoremap <silent> <Leader>nt :NERDTreeToggle<CR>
+nnoremap <silent> <Leader>nf :NERDTreeFind<CR>
+nnoremap <silent> <Leader>ncd :NERDTreeCWD<CR>
+"}}}
+
+"{{{ session
+let g:session_autosave = 'yes'
+let g:session_default_to_last = 1
+let g:session_autoload = 'yes'
+set sessionoptions+=tabpages,globals
+"}}}
+
+"{{{ supertab
+let g:SuperTabDefaultCompletionType = "context"
+"}}}
+
+"{{{ tagbar
+let g:tagbar_left = 0
+let g:tagbar_singleclick = 1
+
+noremap <Leader>t :Tagbar<CR><C-L>
+"}}}
+
+"{{{ ultisnips
+let g:UltiSnipsExpandTrigger = "<c-j>"
+let g:UltiSnipsJumpForwardTrigger = "<c-j>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
+"}}}
+
+"{{{ formatting
+let g:strip_whitespace_on_save=1
+"}}}
