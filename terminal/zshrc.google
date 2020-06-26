@@ -1,8 +1,11 @@
 ######### Importing settings ##########
 export DOTFILES_DIR=${HOME}/Code/dotfiles
-source ${DOTFILES_DIR}/terminal/zsh
+source ${DOTFILES_DIR}/terminal/zshrc
 #######################################
 source /etc/bash_completion.d/g4d
+
+source $HOME/zsh-async/async.zsh
+source ${DOTFILES_DIR}/terminal/goog_prompt.zsh
 
 PROMPT_PREFIX=""
 
@@ -14,7 +17,8 @@ alias dev="ssh $dev_host -Y -C -o ControlPath=none -t tmx2 a"
 F1_TOOLS="/google/data/ro/projects/storage/f1/tools"
 BOLT_UTILS_DIR="$HOME/Code/scripts/bolt"
 BREW="$HOME/.linuxbrew/bin"
-export PATH="$HOME/.local/bin/:$UTILS_DIR/:$IWYU_DIR:$BT_UTILS_DIR:$ANALYTICS_UTILS_DIR:$F1_TOOLS:$BOLT_UTILS_DIR:$BREW:$PATH"
+EDITOR_TOOLS="/google/bin/releases/editor-devtools"
+export PATH="$HOME/.local/bin/:$UTILS_DIR/:$IWYU_DIR:$BT_UTILS_DIR:$ANALYTICS_UTILS_DIR:$F1_TOOLS:$BOLT_UTILS_DIR:$BREW:$EDITOR_TOOLS:$PATH"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"

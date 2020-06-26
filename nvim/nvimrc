@@ -4,6 +4,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'bling/vim-airline'
 Plug 'edkolev/tmuxline.vim'
 Plug 'ervandew/maximize'
@@ -18,7 +19,6 @@ Plug 'duff/vim-bufonly'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'Lokaltog/powerline-fonts'
-Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-repeat'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -48,8 +48,20 @@ augroup filetype_vim
 augroup END
 "}}}
 
-" CDC = Change to Directory of Current file
-command! Cdc cd %:p:h
+"{{{ general mappings
+" set a map leader for more key combos
+let mapleader=","
+let maplocalleader="\\"
+
+" shortcut to save
+nmap <leader>, :w<cr>
+
+nnoremap <silent> <leader>/ :noh<CR>
+nnoremap <silent> <leader>qq :call QuickFixToggle()<CR>
+nnoremap <leader>g :execute "grep! -R " . shellescape(expand("<cWORD>")) . " " . expand('%:p')<cr>:copen<cr>
+
+nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+"}}}
 
 "{{{ options
 filetype plugin on
@@ -116,7 +128,13 @@ highlight clear SignColumn
 "}}}
 
 "{{{ fzf
-noremap <C-P> :FZF<CR>
+nnoremap <leader>f :FZF<CR>
+
+if !exists('g:fzf_layout')
+  autocmd! FileType fzf
+  autocmd  FileType fzf set laststatus=0 noshowmode noruler
+      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+endif
 "}}}
 
 "{{{ windowing
@@ -265,12 +283,10 @@ endfunction
 
 " }}}
 
-"Normal mode.
-nnoremap <leader>cf :let g:clang_include_fixer_query_mode=0<cr>:pyf /usr/lib/clang-include-fixer/clang-include-fixer.py<cr>
-"Query mode.
-nnoremap <leader>qf :let g:clang_include_fixer_query_mode=1<cr>:pyf /usr/lib/clang-include-fixer/clang-include-fixer.py<cr>
-
+"{{{ clang
+nnoremap <leader>i :let g:clang_include_fixer_query_mode=1<cr>:py3f /usr/lib/clang-include-fixer/clang-include-fixer.py<cr>
 noremap <leader>cr :pyf /google/src/head/depot/google3/third_party/llvm/llvm/tools/clang/tools/extra/clang-rename/tool/clang-rename.py<cr>
+"}}}
 
 au User lsp_setup call lsp#register_server({
     \ 'name': 'CiderLSP',
@@ -399,8 +415,8 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Remap for format selected region
-vmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+"vmap <leader>=  <Plug>(coc-format-selected)
+"nmap <leader>=  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
