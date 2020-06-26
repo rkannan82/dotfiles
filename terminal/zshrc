@@ -14,13 +14,3 @@ alias ll="ls -al"
 alias vi="nvim"
 alias vim="nvim"
 alias rm="rm -i"
-
-# Functions
-# Find file
-function ff() {
-  if [ $# = 1 ]; then
-    find . -name $1 -print
-  else
-    find $1 -name $2 -print
-  fi
-}
