@@ -32,6 +32,7 @@ Plug 'rakr/vim-one'
 Plug 'chriskempson/base16-vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'sheerun/vim-polyglot'
 
 " Initialize plugin system
 call plug#end()
@@ -246,10 +247,10 @@ Glug refactorer
 Glug relatedfiles
 Glug syntastic-google
 Glug ultisnips-google
-"Glug youcompleteme-google
 
 " settings {{{
 let g:UltiSnipsSnippetDirectories=["UltiSnips", "gsnippets"]
+let g:citc_workspace='master'
 " }}}
 
 " mappings {{{
