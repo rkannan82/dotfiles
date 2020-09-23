@@ -2,7 +2,8 @@
 export DOTFILES_DIR=${HOME}/Code/dotfiles
 source ${DOTFILES_DIR}/terminal/zshrc
 #######################################
-source /etc/bash_completion.d/g4d
+# Disabling as it makes zsh completion slow.
+#source /etc/bash_completion.d/g4d
 
 source $HOME/zsh-async/async.zsh
 source ${DOTFILES_DIR}/terminal/goog_prompt.zsh
@@ -26,7 +27,7 @@ export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 alias code="tmx2 attach-session -t"
 export CLANG_TOOLS_TRACK=llvm_unstable
 
-alias pa="prodaccess --corp_ssh"
+alias pa="gcert"
 alias fu="fileutil"
 alias flex=/google/data/ro/projects/flex/flex.par
 alias mux="tmux -CC attach"
@@ -43,6 +44,16 @@ alias flowmon="/google/data/ro/teams/flowmon/cli/flowmon"
 function hgd () {
   citc_name=${1}
   `hg citc $citc_name -q`
+}
+
+function g4d() {
+  citc_name=${1}
+  cd $(p4 g4d "${1}")
+}
+
+function g4df() {
+  citc_name=${1}
+  cd $(p4 g4d -f "${1}")
 }
 
 function scp_from_dev() {

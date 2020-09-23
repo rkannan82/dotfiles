@@ -18,7 +18,6 @@ Plug 'tpope/vim-dispatch'
 Plug 'duff/vim-bufonly'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
-Plug 'Lokaltog/powerline-fonts'
 Plug 'tpope/vim-repeat'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -250,7 +249,7 @@ Glug ultisnips-google
 
 " settings {{{
 let g:UltiSnipsSnippetDirectories=["UltiSnips", "gsnippets"]
-let g:citc_workspace='master'
+let g:citc_workspace = '/google/src/cloud/'. $USER . '/master/google3/'
 " }}}
 
 " mappings {{{
@@ -342,10 +341,19 @@ function! OpenTestLog()
   exec 'vsp + ' . test_log
 endfunction
 
+function! ToggleBuildRuleSuffix()
+  if g:blaze_lib_suffix == 1
+    let g:blaze_lib_suffix=0
+  else
+    let g:blaze_lib_suffix=1
+  endif
+endfunction
+
 nnoremap <silent> <leader>bb :call BlazeBuild()<CR>
 nnoremap <silent> <leader>bt :call BlazeTest()<CR>
 nnoremap <silent> <leader>bc :call BuildCleaner()<CR>
 nnoremap <silent> <leader>bl :call OpenTestLog()<CR>
+nnoremap <silent> <leader>br :call ToggleBuildRuleSuffix()<CR>
 "}}}
 
 "{{{ completion - coc
